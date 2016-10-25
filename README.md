@@ -1,5 +1,5 @@
 # CFT-Simulator
-A utility to simulate / evaluate complex Cloud Formation Templates.
+A utility to simulate / debug complex Cloud Formation Templates.
 
 ### Why should I care?
 CFT have gone a long way from being a declerative blue print for an AWS environemnt.
@@ -11,7 +11,7 @@ It was created from our need for a preprosessor to allow running security assess
 ### What does it do?
 This an early work-in-progress. Currently it:
 * Parses the input file (JSON only)
-* Requests the user for values for all parameters which are defined in the template
+* Prompts the user for values for all parameters that are decalred in the template
 * Replaces all occurences of the parameters with the user's values
 * In 'IF' statements - it currently selects the first option. (soon - a true evaluation of the condition)
 * Clears all conditions (keeping the original node). Soon, it will allow / delete the node according to proper evaluation of the condition
@@ -21,7 +21,9 @@ This an early work-in-progress. Currently it:
 (Can be downloaded from: <a href="https://nodejs.org">here</a> )
 
 # Installation
-1. Clone this repo into your local machine
+1. Clone this repo into your local machine:
+
+```git clone https://github.com/Dome9/cft-simulator.git```
 
 2. Navigate to the tool's folder:
 
