@@ -42,7 +42,20 @@ The tool recives a single command-line argument which is the path to the source 
 
 Usage:
 
-```node index.js <path to file>```
+```
+node index.js -h
+
+  Usage: index [options] <file>
+
+  Options:
+
+    -h, --help          output usage information
+    -V, --version       output the version number
+    -p, --params <env>  a JSON formatted object. surrounded with ' Example: -p '{"env":"prod","a":123}'
+
+
+node index.js -p '{"env":"prod", "count":123}' path/to/cft.json 
+```
 
 In order to write the result into a new file - just redirect the output into the desired file path. Example:
 
