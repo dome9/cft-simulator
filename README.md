@@ -38,7 +38,8 @@ This an early work-in-progress. Currently it:
 ```node index.js --version```
 
 # Running the tool
-The tool recives a single command-line argument which is the path to the source CFT file and writes a transformed JSON into the standard output.
+The tool recives mandatory command-line argument which is the path to the source CFT file (and optional parameters object) and writes a transformed JSON into the standard output.
+The tool will prompt the user to enter every parameter that is defined in the template but was not provided via the command line -p parameter.
 
 Usage:
 
@@ -54,7 +55,7 @@ node index.js -h
     -p, --params <env>  a JSON formatted object. surrounded with ' Example: -p '{"env":"prod","a":123}'
 
 
-node index.js -p '{"env":"prod", "count":123}' path/to/cft.json 
+node index.js -p '{"env":"prod", "port":80}' path/to/cft.json 
 ```
 
 In order to write the result into a new file - just redirect the output into the desired file path. Example:
