@@ -62,6 +62,17 @@ In order to write the result into a new file - just redirect the output into the
 
 ```node index.js path/to/source.json > result.json```
 
+# Executing custom processing logic
+You can write your own processors to handle any specific logic for your choice. A good example is to write a custom processor for a custom resource.<br/>
+See the `sampleProcessor.js` in `processors` folder.<br/>
+*Do not forget* to uncomment the execution of this custom processor in index.js
+
+```js
+    // Your own custom processors here...
+    //var customProcessor = require("./processors/sampleProcessor");
+    //ret = customProcessor.process(ret);
+```
+
 # Future Work
 * Support stacked CFT
 * Support YAML format
