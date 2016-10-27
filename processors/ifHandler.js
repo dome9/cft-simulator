@@ -1,3 +1,5 @@
+/*
+// Not needed anymore. expressionsEvaluator is doing this job now
 var _ = require('lodash');
 
 function selectFirstIfOption(doc) {
@@ -13,3 +15,4 @@ function selectFirstIfOption(doc) {
         return doc;
 }
 exports.process = selectFirstIfOption;
+*/

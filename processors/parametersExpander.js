@@ -6,7 +6,12 @@ function expandParams(doc,program) {
     return processRec(doc, values);
 
     function gatherParams(doc) {
-        var values = { "AWS::Region": "us-east-1" };  //defualt
+        // dummy defualt values - can be overriden by user parameters
+        var values = { 
+            "AWS::Region": "us-east-1",
+            "AWS::AccountId": "1234567890" 
+        };  
+        
         // did we recieve params from commandline?
         if (program.params) {
             try {
@@ -29,7 +34,10 @@ function expandParams(doc,program) {
                 var question = `${name}:${param.Description} [${param.AllowedValues}] Enter for default (${param.Default}):`;
                 var answer = readlineSync.question(question);
                 if (answer === "")
-                    answer = param.Default || "";
+                    answer =   _.includes(_.keys(param),"Default") ? param.Default : "";
+                
+                if(param["Type"]==="Number")
+                    answer = parseInt(answer);
 
                 console.error(`param  ${name} : ${answer}`);
                 values[name] = answer;
@@ -41,7 +49,6 @@ function expandParams(doc,program) {
     }
 
     function processRec(doc, values) {
-
         if (_.isPlainObject(doc)) {
             if (doc.Ref && _.includes(_.keys(values), doc.Ref)) //Ref object. Do we know this param? if so replace with a real (expanded) value;
                 return values[doc.Ref];

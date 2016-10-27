@@ -50,16 +50,21 @@ function processData(data) {
     ret = parametersExpander.process(ret,program);
 
     // Temp - choose the first option in IF statements (will be replaced with full evaluation of the condition)
-    var ifProcessor = require("./processors/ifHandler");
-    ret = ifProcessor.process(ret);
+    //var ifProcessor = require("./processors/ifHandler");
+    //ret = ifProcessor.process(ret);
 
     // Temp - remove the condition. In the future we'll attempt to evaluate the condition
-    var conditionsHandler = require("./processors/conditionsHandler");
-    ret = conditionsHandler.process(ret);
+    //var conditionsHandler = require("./processors/conditionsHandler");
+    //ret = conditionsHandler.process(ret);
 
     // Replace the Fn::GetAtt syntax with Ref syntax for: GroupID, SourceSecurityGroupId and DestinationSecurityGroupId
     var referenceFixer = require("./processors/sgReferenceFixer");
     ret = referenceFixer.process(ret);
+
+    // Expressions Evaluator for resolving intristic functions and runtime values
+    var expressionsResolver = require("./processors/expressionsEvaluator");
+    ret = expressionsResolver.process(ret);
+
 
     // Your own custom processors here...
     //var customProcessor = require("./processors/sampleProcessor");
@@ -67,11 +72,3 @@ function processData(data) {
 
     return ret;
 }
-
-
-
-
-
-
-
-
