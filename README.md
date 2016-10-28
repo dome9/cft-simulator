@@ -71,8 +71,8 @@ See the `sampleProcessor.js` in `processors` folder.<br/>
 
 ```js
     // Your own custom processors here...
-    //var customProcessor = require("./processors/sampleProcessor");
-    //ret = customProcessor.process(ret);
+    var customProcessor = require("./processors/sampleProcessor");
+    ret = customProcessor.process(ret);
 ```
 
 # Future Work
