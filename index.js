@@ -6,7 +6,7 @@ var fs = require('fs');
 var program = require('commander');
 
 program
-    .version('0.2.0')
+    .version('0.3.0')
     .usage('[options] <file>')
     .option('-p, --params <env>', 'a JSON formatted object. surrounded with \' Example: -p \'{"env":"prod","port":80}\' ')
     .parse(process.argv);
