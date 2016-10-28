@@ -18,7 +18,7 @@ function process(doc) {
             }
 
             if (doc["Fn::Not"]){
-                var evaluatedParams = evalExpr(doc["Fn::Join"]);
+                var evaluatedParams = evalExpr(doc["Fn::Not"]);
                 return fnNot(evaluatedParams[0]);
             }
 
@@ -41,15 +41,16 @@ function process(doc) {
                 var evaluatedParams = evalExpr(doc["Fn::Select"]);
                 return fnSelect(evaluatedParams[0], evaluatedParams[1]);
             }
-
+            
             if(doc["Condition"]){
-                return evalCondition(doc["Condition"]);
+                // is this a pure condition or a resource with a condition
+                if(_.keys(doc).length===1)
+                    return evalCondition(doc["Condition"]); // pure condition - just evaluate the predicate
+                else
+                    doc["Condition"] = evalCondition(doc["Condition"]); // in place modification. The conditions processor will deal with it later
             }
-
-
-
             // regular object
-            else return _.mapValues(doc, (child) => evalExpr(child));
+            return _.mapValues(doc, (child) => evalExpr(child));
         }
         else if (_.isArray(doc))
             return _.map(doc, (elm) => evalExpr(elm));
@@ -99,10 +100,10 @@ function process(doc) {
     }
 
     function evalCondition(condName){
-        console.error("EvalCondition", condName);        
+        //console.error("EvalCondition", condName);        
         var condExpr = globalScope["Conditions"][condName];
         var condVal = evalExpr(condExpr); // this might not be neccesary - as the condition is probably evaluated by now.
-        console.error(" EvalCondition return:", condVal);
+        //console.error(" EvalCondition return:", condVal);
         return condVal;
     }
 

@@ -54,8 +54,6 @@ function processData(data) {
     //ret = ifProcessor.process(ret);
 
     // Temp - remove the condition. In the future we'll attempt to evaluate the condition
-    //var conditionsHandler = require("./processors/conditionsHandler");
-    //ret = conditionsHandler.process(ret);
 
     // Replace the Fn::GetAtt syntax with Ref syntax for: GroupID, SourceSecurityGroupId and DestinationSecurityGroupId
     var referenceFixer = require("./processors/sgReferenceFixer");
@@ -64,6 +62,9 @@ function processData(data) {
     // Expressions Evaluator for resolving intristic functions and runtime values
     var expressionsResolver = require("./processors/expressionsEvaluator");
     ret = expressionsResolver.process(ret);
+
+    var conditionsHandler = require("./processors/conditionsHandler");
+    ret = conditionsHandler.process(ret);
 
 
     // Your own custom processors here...

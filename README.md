@@ -9,12 +9,13 @@ Now you can debug complex CFT and transform a generic template into a concrete p
 It was created from our need for a pre-processor to allow running security assessments in Dome9's [Clarity Visualization tool](https://dome9.com/solutions/security-visualization/)
 
 ### What does it do?
-This an early work-in-progress. Currently it:
+This a work-in-progress. Currently it:
 * Parses the input file (JSON only)
 * Prompts the user for values for all parameters that are declared in the template (and were not provided as a CLI parameter)
 * Replaces all occurrences of the parameters with the user's values
-* In 'IF' statements - it currently selects the first option. (soon - a true evaluation of the condition)
-* Clears all conditions (keeping the original node). Soon, it will allow / delete the node according to proper evaluation of the condition
+* Evaluates intrinsic functions: And, Or ,Not, Join, FindInMap, etc...
+* Evaluates all conditions according to user's input and functions evaluation
+* Deletes all nodes with false conditions and select the correct If option
 * Replaces Security Groups implicit references from `Fn::GetAtt` syntax to `Ref` which does not rely on runtime values hence more appropriate for static analysis
 
 # Requirements
@@ -78,9 +79,9 @@ See the `sampleProcessor.js` in `processors` folder.<br/>
 * Support stacked CFT
 * Support YAML format
 * Proper evaluation of conditions (as long as they can be statically evaluated):
-    * Implementation of native inner functions
+    * Implementation of native inner functions [DONE]
     * Minimal emulation of runtime properties
-* Better support for 'If' statements according to the evaluated conditions
+* Better support for 'If' statements according to the evaluated conditions [DONE]
 
 
 
