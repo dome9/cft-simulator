@@ -2,7 +2,7 @@
 A utility to simulate / debug complex Cloud Formation Templates.
 
 ### Why should I care?
-CFT have gone a long way from being a declerative blue print for an AWS environment.
+CFT have gone a long way from being a declarative blueprint for an AWS environment.
 Power users of AWS CloudFormation, often create CFTs which act like a software program - one that accepts parameters, process them according to logic and generates output.<br/>
 This tool allows you to run an offline (= not executing the stack in AWS environment) simulation of the CFT according to various input parameters.<br/>
 Now you can debug complex CFT and transform a generic template into a concrete plan with all parameters and conditions materialized.<br/>
@@ -19,7 +19,7 @@ This a work-in-progress. Currently it:
 * Replaces Security Groups implicit references from `Fn::GetAtt` syntax to `Ref` which does not rely on runtime values hence more appropriate for static analysis
 
 # Requirements
-* NodeJs stable version 4.3.2 or later. 
+* NodeJs stable version 4.0.0 or later. 
 (Can be downloaded from: <a href="https://nodejs.org">here</a> )
 
 # Installation
@@ -35,9 +35,9 @@ This a work-in-progress. Currently it:
 
 ```npm install```
 
-4. Verify the tool is installed:
+4. Verify that the tool/ dependencies are properly installed:
 
-```node index.js --version```
+```node cft-simulator.js --version```
 
 # Running the tool
 The tool receives mandatory command-line argument which is the path to the source CFT file (and optional parameters object) and writes a transformed JSON into the standard output.
@@ -46,7 +46,7 @@ The tool will prompt the user to enter every parameter that is defined in the te
 Usage:
 
 ```
-node index.js -h
+node cft-simulator.js -h
 
   Usage: index [options] <file>
 
@@ -57,7 +57,7 @@ node index.js -h
     -p, --params <env>  a JSON formatted object. surrounded with ' Example: -p '{"env":"prod","a":123}'
 
 
-node index.js -p '{"env":"prod", "port":80}' path/to/cft.json 
+node cft-simulator.js -p '{"env":"prod", "port":80}' path/to/cft.json 
 ```
 
 In order to write the result into a new file - just redirect the output into the desired file path. Example:
@@ -67,7 +67,7 @@ In order to write the result into a new file - just redirect the output into the
 # Executing custom processing logic
 You can write your own processors to handle any specific logic for your choice. A good example is to write a custom processor for a custom resource.<br/>
 See the `sampleProcessor.js` in `processors` folder.<br/>
-*Do not forget* to uncomment the execution of this custom processor in index.js
+*Do not forget* to uncomment the execution of this custom processor in `cft-simulator.js`
 
 ```js
     // Your own custom processors here...

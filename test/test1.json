@@ -1,0 +1,65 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+
+  "Mappings" : {
+    "RegionMap" : {
+      "us-east-1"      : { "AMI" : "ami-use1"},
+      "us-west-1"      : { "AMI" : "ami-usw1"},
+      "us-west-2"      : { "AMI" : "ami-usw2"}
+    }
+  },
+  
+  "Parameters" : {
+    "EnvType" : {
+      "Default" : "test",
+      "Type" : "String",
+      "AllowedValues" : ["prod", "dev", "test"]
+    },
+    "NameIndex" : {
+        "Default": 0,
+        "Type" : "Number"
+    }
+  },
+  
+  "Conditions" : {
+    "CreateProdResources" : {"Fn::Equals" : [{"Ref" : "EnvType"}, "prod"]},
+    "CreateDevResources" : {"Fn::Equals" : [{"Ref" : "EnvType"}, "dev"]},
+    "OrTest" : {"Fn::Or": [ {"Condition":"CreateProdResources"}, {"Condition":"CreateDevResources"} ]},
+    "NonProd" : {"Fn::Not": [{"Condition":"CreateProdResources"}]}
+  },
+  
+  "Resources" : {
+    "EC2Instance" : {
+      "Type" : "AWS::EC2::Instance",
+      "Properties" : {
+        "FindInMapTest" : { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMI" ]},
+        "NestedIfTest" : { "Fn::If" : [
+          "CreateProdResources",
+          "c1.forprod",
+          {"Fn::If" : [
+            "CreateDevResources",
+            "m1.forDevstuff",
+            "m1.forOtherEnvs"
+          ]}
+        ]},
+        "SelectTest": { "Fn::Select" : [ {"Ref": "NameIndex"}, [ "apples", "grapes", "oranges", "mangoes" ] ] },
+        "JoinTest" : {"Fn::Join" : [ ":", [ "a", "b", "c" ] ]},
+        "PseudoParam" : {"Ref": "AWS::Region"}
+      }
+    },
+    "ProdInstance" : {
+      "Type" : "AWS::EC2::Instance",
+      "Properties" : {
+        "Name": "ProdOnly"
+      },
+      "Condition":"CreateProdResources"
+    },
+    "NonProdInstance" : {
+      "Type" : "AWS::EC2::Instance",
+      "Properties" : {
+        "Name": "aNonProdInstance"
+      },
+      "Condition":"NonProd"
+    }
+  }
+}

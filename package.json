@@ -1,10 +1,10 @@
 {
   "name": "cft-simulator",
   "version": "0.0.1",
-  "description": "a utility to materilize a parameterized Cloud Formation Template",
-  "main": "index.js",
+  "description": "a utility to simulate execution of a complex parameterized Cloud Formation Template",
+  "main": "cft-simulator.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cd test && node test-runner.js"
   },
   "keywords": [
     "AWS",
@@ -12,7 +12,7 @@
     "CFT",
     "Dome9"
   ],
-  "author": "Roy Feintuch",
+  "author": "Roy Feintuch <roy at dome9.com>",
   "license": "BSD-3-Clause",
   "dependencies": {
     "commander": "^2.9.0",
