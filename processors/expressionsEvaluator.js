@@ -26,6 +26,12 @@ function process(doc) {
                 var evaluatedParams = evalExpr(doc["Fn::Join"]);
                 return fnJoin(evaluatedParams[0], evaluatedParams[1]);
             }
+            
+            
+            if (doc["Fn::Split"]) {
+                var evaluatedParams = evalExpr(doc["Fn::Split"]);
+                return fnSplit(evaluatedParams[0], evaluatedParams[1]);
+            }
 
             if (doc["Fn::FindInMap"]) {
                 var evaluatedParams = evalExpr(doc["Fn::FindInMap"]);
@@ -75,6 +81,10 @@ function process(doc) {
 
     function fnJoin(separator, arr) {
         return _.join(arr, separator);
+    }
+
+    function fnSplit(separator, str) {
+        return _.split(str, separator);
     }
 
     function fnIf(condName, optTrue, optFalse) {
