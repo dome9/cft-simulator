@@ -4,7 +4,9 @@
   "description": "a utility to simulate execution of a complex parameterized Cloud Formation Template",
   "main": "cft-simulator.js",
   "scripts": {
-    "test": "cd test && node test-runner.js"
+    "test": "cd test && node test-runner.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "keywords": [
     "AWS",
@@ -17,7 +19,9 @@
   "dependencies": {
     "commander": "^2.9.0",
     "lodash": "^4.16.4",
-    "readline-sync": "^1.4.4"
+    "readline-sync": "^1.4.4",
+    "snyk": "^1.189.0"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "snyk": true
 }
