@@ -44,6 +44,7 @@
         ]},
         "SelectTest": { "Fn::Select" : [ {"Ref": "NameIndex"}, [ "apples", "grapes", "oranges", "mangoes" ] ] },
         "JoinTest" : {"Fn::Join" : [ ":", [ "a", "b", "c" ] ]},
+        "SplitTest" : {"Fn::Split" : [ ":", "a:b:c" ]},
         "PseudoParam" : {"Ref": "AWS::Region"}
       }
     },
