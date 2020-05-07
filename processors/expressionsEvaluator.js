@@ -7,6 +7,12 @@ function process(doc) {
     function evalExpr(doc) {
         //console.error("EVALUATING:", doc);
         if (_.isPlainObject(doc)) {
+
+            if (doc["Fn::Split"]) {
+                var evaluatedParams = evalExpr(doc["Fn::Split"]);
+                return fnSplit(evaluatedParams[0], evaluatedParams[1]);
+            }
+            
             if (doc["Fn::Equals"]){
                 var evaluatedParams = evalExpr(doc["Fn::Equals"]);
                 return fnEquals(evaluatedParams[0], evaluatedParams[1]);
@@ -62,6 +68,10 @@ function process(doc) {
 
     function fnEquals(a, b) {
         return _.isEqual(a, b);
+    }
+
+    function fnSplit(a, b) {
+        return b.split(a);
     }
 
     function fnOr(arr) {
